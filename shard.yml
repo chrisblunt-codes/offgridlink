@@ -14,8 +14,12 @@ license: Apache-2.0
 
 crystal: ">= 1.17.0"
 
-targets:
-  server:
-    main: src/ogl/server.cr
-  agent:
-    main: src/ogl/agent.cr
+dependencies:
+  offgridlink-core:
+    github: chrisblunt-codes/offgridlink-core
+    
+# targets:
+#   server:
+#     main: src/ogl/server.cr
+#   agent:
+#     main: src/ogl/agent.cr

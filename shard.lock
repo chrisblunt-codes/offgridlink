@@ -1,0 +1,6 @@
+version: 2.0
+shards:
+  offgridlink-core:
+    git: https://github.com/chrisblunt-codes/offgridlink-core.git
+    version: 0.1.2
+
