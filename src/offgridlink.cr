@@ -48,7 +48,7 @@ module OGL
 
     case mode
     when :server then run_server(port)
-    when :agent  then Agent.new(addr, port).run_forever
+    when :agent  then Core::Agent.new(addr, port).run_forever
     when :send   then send_message(addr, port, to, msg)
     else
       puts "Unknown command"
@@ -58,10 +58,10 @@ module OGL
   end
 
   def self.run_server(port : Int32)
-    srv = Server.new(port)
-    srv.on(Op::Hello) { |m| puts "HELLO from agent: #{m.string}" }
-    srv.on(Op::Pong)  { |m| puts "PONG from agent: #{Time.utc}" }
-    srv.on(Op::Data)  { |m| puts "DATA #{m.string.bytesize}B '#{m.string}'" }
+    srv = Core::Server.new(port)
+    srv.on(Core::Op::Hello) { |m| puts "HELLO from agent: #{m.string}" }
+    srv.on(Core::Op::Pong)  { |m| puts "PONG from agent: #{Time.utc}" }
+    srv.on(Core::Op::Data)  { |m| puts "DATA #{m.string.bytesize}B '#{m.string}'" }
     srv.run
   end
 
@@ -71,7 +71,7 @@ module OGL
       exit 1
     end
 
-    if Sender.new(addr, port).send_to(to, msg)
+    if Core::Sender.new(addr, port).send_to(to, msg)
       puts "Message sent" 
       exit 0
     else 
